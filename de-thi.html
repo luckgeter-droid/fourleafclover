@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng luyện đề — FOUR-LEAF CLOVER</title>
+<link rel="icon" href="assets/img/logo-four-leaf-clover.png" type="image/png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 40 40" fill="none"><g><path class="petal p1" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)"/><path class="petal p2" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(90 20 20)"/><path class="petal p3" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(180 20 20)"/><path class="petal p4" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(270 20 20)"/></g><path class="spark-core" d="M20 15.2c.5 2.9 2.1 4.5 5 5-2.9.5-4.5 2.1-5 5-.5-2.9-2.1-4.5-5-5 2.9-.5 4.5-2.1 5-5Z" fill="#F0C24B"/><defs><linearGradient id="gClover" x1="7" y1="4" x2="33" y2="34"><stop stop-color="#1F5C3D"/><stop offset=".55" stop-color="#2E7D5B"/><stop offset="1" stop-color="#123626"/></linearGradient></defs></svg>
+        <span class="word">FOUR-LEAF <b>CLOVER</b></span>
+      </a>
+      <nav class="nav-links">
+        <!-- Navbar sẽ được render bởi JavaScript -->
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn menu-toggle" aria-label="Mở menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div data-guest-only style="display:flex; gap:8px;">
+        <a href="dang-nhap.html" class="btn btn-ghost btn-sm">Đăng nhập</a>
+        <a href="dang-ky.html" class="btn btn-primary btn-sm">Đăng ký</a>
+      </div>
+      <div data-auth-only style="display:none; align-items:center; gap:10px;">
+        <a href="admin.html" class="btn btn-primary btn-sm" id="adminLink" style="display:none;">Quản trị</a>
+        <a href="tai-khoan.html" class="avatar-chip"><span class="avatar-fallback" data-user-initials>FC</span><span data-user-name>Học viên</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="side-backdrop"></div>
+<div class="shell">
+  <aside class="side">
+    <div class="side-user">
+      <span class="avatar-fallback" data-user-initials style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">FC</span>
+      <div><div class="name" data-user-name>Học viên</div><div class="tag" data-user-tag>Chưa đăng nhập</div></div>
+    </div>
+    <div class="side-group-label">Góc học tập</div>
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Khám phá</a>
+    <a href="khoa-hoc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>Khóa học</a>
+    <a href="de-thi.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>Phòng luyện</a>
+    <a href="lich-su.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Lịch sử làm bài</a>
+    <div class="side-group-label">Tài khoản</div>
+    <a href="tai-khoan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.8-4 6-6 8-6s6.2 2 8 6"/></svg>Cá nhân</a>
+    <a href="#" data-logout><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Đăng xuất</a>
+    <div class="side-group-label">Hỗ trợ</div>
+    <a href="https://zalo.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Liên hệ tư vấn</a>
+  </aside>
+
+  <main>
+    <div class="section-head" style="margin-top:0;">
+      <div><h2>Phòng luyện đề</h2><div class="sub">Làm đề theo đúng thời gian thi thật, chấm điểm tự động, lưu lịch sử làm bài.</div></div>
+      <div data-auth-only style="display:none;"><button class="btn btn-primary btn-sm" data-open-modal="addExamModal">+ Đăng đề mới</button></div>
+    </div>
+
+    <div class="chip-row" id="trackTabs">
+      <button class="chip active" data-track="all">Tất cả</button>
+      <button class="chip tsa" data-track="tsa">TSA</button>
+      <button class="chip hsa" data-track="hsa">HSA</button>
+    </div>
+    <div class="subject-row" id="subjectTabs">
+      <button class="subject-pill active" data-subject="all">Tất cả môn</button>
+      <button class="subject-pill" data-subject="toan">Toán học</button>
+      <button class="subject-pill" data-subject="doc-hieu">Đọc hiểu</button>
+      <button class="subject-pill" data-subject="khoa-hoc">Khoa học</button>
+      <button class="subject-pill" data-subject="tong-hop">Tổng hợp</button>
+    </div>
+
+    <div class="card-grid" id="examGrid"></div>
+  </main>
+</div>
+
+<footer class="site"><div class="wrap"><div class="fine">© 2026 FOUR-LEAF CLOVER Center.</div></div></footer>
+
+<!-- VIP modal -->
+<div class="modal-overlay" id="vipModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>&times;</button>
+    <h3>Nhập mã VIP phòng luyện</h3>
+    <p class="desc">Nhập mã VIP để kích hoạt đúng gói phòng luyện trên tài khoản của bạn. Mỗi mã chỉ dùng được một lần.</p>
+    <form data-vip-form>
+      <div class="code-input-row"><input type="text" placeholder="Nhập mã VIP" required><button type="submit" class="btn btn-primary">Kích hoạt</button></div>
+    </form>
+    <p class="hint">Chưa có mã? <a href="https://zalo.me/" target="_blank" rel="noopener" style="color:var(--red); font-weight:700;">Nhắn Zalo tư vấn</a></p>
+  </div>
+</div>
+
+<!-- Add exam modal -->
+<div class="modal-overlay" id="addExamModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>&times;</button>
+    <h3>Đăng đề luyện mới</h3>
+    <p class="desc">Tải lên tệp đề thi (PDF/Word) để thêm vào ngân hàng đề của phòng luyện.</p>
+    <form id="examForm">
+      <div class="field"><label>Tên đề thi</label><input type="text" id="eTitle" required placeholder="VD: Toán học TSA — Đề số 31"></div>
+      <div class="field">
+        <div style="display:flex; gap:8px;">
+          <select id="eTrack" style="flex:1;"><option value="tsa">TSA</option><option value="hsa">HSA</option></select>
+          <select id="eSubject" style="flex:1;"><option value="toan">Toán học</option><option value="doc-hieu">Đọc hiểu</option><option value="khoa-hoc">Khoa học</option><option value="tong-hop">Tổng hợp</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <div style="display:flex; gap:8px;">
+          <input type="number" id="eDuration" placeholder="Thời gian (phút)" required>
+          <input type="number" id="eQuestions" placeholder="Số câu hỏi" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>Tệp đề thi</label>
+        <div class="dropzone" id="examDrop">
+          <input type="file" id="examFile" accept=".pdf,.doc,.docx">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <strong>Kéo thả tệp đề vào đây</strong>
+        </div>
+        <div id="examFileHolder"></div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Đăng đề thi</button>
+    </form>
+  </div>
+</div>
+
+<!-- Mock exam-taking modal -->
+<div class="modal-overlay" id="examTakeModal">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" data-close-modal>&times;</button>
+    <h3 id="etTitle">Đề thi</h3>
+    <p class="desc">Đây là bản demo phòng luyện — trả lời nhanh các câu hỏi mẫu bên dưới rồi nộp bài để xem điểm.</p>
+    <div id="etQuestions"></div>
+    <button class="btn btn-primary btn-block" id="etSubmit" style="margin-top:6px;">Nộp bài</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  const EXAMS = [
+    { id: "TOAN_TSA_FREE", track: "tsa", subject: "toan", vip: false, title: "Toán học TSA — Đề dùng thử số 01", duration: 60, questions: 40 },
+    { id: "TOAN_TSA_01", track: "tsa", subject: "toan", vip: true, title: "Toán học TSA — Đề chính thức kíp 1", duration: 60, questions: 40 },
+    { id: "TOAN_TSA_02", track: "tsa", subject: "toan", vip: true, title: "Toán học TSA — Đề chính thức kíp 2", duration: 60, questions: 40 },
+    { id: "DOC_TSA_01", track: "tsa", subject: "doc-hieu", vip: true, title: "Đọc hiểu TSA — Đề số 01", duration: 30, questions: 20 },
+    { id: "DOC_TSA_02", track: "tsa", subject: "doc-hieu", vip: true, title: "Đọc hiểu TSA — Đề số 02", duration: 30, questions: 20 },
+    { id: "KH_TSA_01", track: "tsa", subject: "khoa-hoc", vip: true, title: "Khoa học TSA — Đề số 01", duration: 60, questions: 40 },
+    { id: "FULL_TSA_01", track: "tsa", subject: "tong-hop", vip: true, title: "Đề thi thử TSA tổng hợp — Số 01", duration: 150, questions: 100 },
+    { id: "DL_HSA_FREE", track: "hsa", subject: "toan", vip: false, title: "Định lượng HSA — Đề dùng thử số 01", duration: 75, questions: 50 },
+    { id: "DL_HSA_02", track: "hsa", subject: "toan", vip: true, title: "Định lượng HSA — Đề số 02", duration: 75, questions: 50 },
+    { id: "DT_HSA_01", track: "hsa", subject: "doc-hieu", vip: true, title: "Định tính HSA — Đề số 01", duration: 60, questions: 50 },
+    { id: "KH_HSA_01", track: "hsa", subject: "khoa-hoc", vip: true, title: "Khoa học HSA — Đề số 01", duration: 60, questions: 50 },
+    { id: "FULL_HSA_01", track: "hsa", subject: "tong-hop", vip: true, title: "Đề thi thử HSA tổng hợp — Số 01", duration: 195, questions: 150 },
+  ];
+
+  let state = { track: 'all', subject: 'all' };
+  const params = new URLSearchParams(location.search);
+  if (params.get('track')) state.track = params.get('track');
+  document.querySelectorAll('#trackTabs .chip').forEach(c=>c.classList.toggle('active', c.dataset.track===state.track));
+
+  function render(){
+    document.querySelectorAll('#trackTabs .chip').forEach(c=>c.classList.toggle('active', c.dataset.track===state.track));
+    document.querySelectorAll('#subjectTabs .subject-pill').forEach(c=>c.classList.toggle('active', c.dataset.subject===state.subject));
+
+    let list = [...EXAMS];
+    list = list.filter(e => (state.track==='all' || e.track===state.track) && (state.subject==='all' || e.subject===state.subject));
+
+    const grid = document.getElementById('examGrid');
+    const user = FLC.getCurrentUser();
+    const vip = user?.vip || false;
+    
+    if (!list.length){
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg><h4>Chưa có đề phù hợp</h4><p>Thử đổi bộ lọc hoặc đăng đề mới.</p></div>`;
+      return;
+    }
+    grid.innerHTML = list.map(e => {
+      const locked = e.vip && !vip;
+      return `
+      <div class="exam-card">
+        <div class="exam-top">
+          <span class="tag-pill ${e.vip?'vip':'free'}">${e.vip?'VIP':'FREE'}</span>
+          <span class="tag-pill" style="background:var(--mist); color:var(--ink-60);">${e.track.toUpperCase()}</span>
+        </div>
+        <h4>${e.title}</h4>
+        <div class="exam-info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${e.duration}'</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>${e.questions} câu</span>
+        </div>
+        <div class="exam-actions">
+          ${locked
+            ? `<button class="btn btn-ghost btn-sm lockbtn">Đã khóa · Mở VIP</button>`
+            : `<button class="btn btn-primary btn-sm startbtn" data-title="${e.title.replace(/"/g,'&quot;')}" data-duration="${e.duration}" data-questions="${e.questions}">Làm bài ngay</button>`}
+          <a href="lich-su.html" class="btn btn-ghost btn-sm">Lịch sử</a>
+        </div>
+      </div>`;
+    }).join('');
+
+    grid.querySelectorAll('.lockbtn').forEach(b => b.addEventListener('click', ()=> FLC.openModal('vipModal')));
+    grid.querySelectorAll('.startbtn').forEach(b => b.addEventListener('click', ()=> startExam(b.dataset.title, b.dataset.questions)));
+  }
+
+  document.querySelectorAll('#trackTabs .chip').forEach(c => c.addEventListener('click', ()=>{ state.track=c.dataset.track; render(); }));
+  document.querySelectorAll('#subjectTabs .subject-pill').forEach(c => c.addEventListener('click', ()=>{ state.subject=c.dataset.subject; render(); }));
+
+  const SAMPLE_Q = [
+    "Câu 1: Nếu 2x + 3 = 11 thì x bằng bao nhiêu?",
+    "Câu 2: Chọn từ đồng nghĩa gần nhất với 'kiên định'.",
+    "Câu 3: Một thí nghiệm cho thấy tốc độ phản ứng tăng gấp đôi khi nhiệt độ tăng 10°C. Đây là quy luật gì?",
+  ];
+
+  function startExam(title, questions){
+    if (!FLC.getCurrentUser()){ FLC.showToast('Vui lòng đăng nhập để làm bài'); return; }
+    document.getElementById('etTitle').textContent = title;
+    document.getElementById('etQuestions').innerHTML = SAMPLE_Q.map((q,i)=>`
+      <div class="field"><label>${q}</label>
+        <select><option>-- Chọn đáp án --</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+      </div>`).join('') + `<p class="hint">+ ${Math.max(0,questions-3)} câu còn lại trong đề đầy đủ.</p>`;
+    document.getElementById('etSubmit').onclick = () => {
+      const score = (Math.random()*4 + 5.5).toFixed(1);
+      FLC.showToast(`Nộp bài thành công! Điểm của bạn: ${score}`);
+      FLC.closeModal('examTakeModal');
+    };
+    FLC.openModal('examTakeModal');
+  }
+
+  let pendingExamFile = null;
+  document.getElementById('examFile')?.addEventListener('change', (e)=>{
+    const f = e.target.files[0]; if(!f) return; pendingExamFile = f;
+    document.getElementById('examFileHolder').innerHTML = `<div class="upload-row"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></span><div class="meta"><div class="fname">${f.name}</div><div class="fsize">${(f.size/1024).toFixed(0)} KB</div></div></div>`;
+  });
+
+  document.getElementById('examForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    FLC.showToast('Đã đăng đề thi mới!', 'success');
+    document.getElementById('examForm').reset();
+    document.getElementById('examFileHolder').innerHTML=''; pendingExamFile=null;
+    FLC.closeModal('addExamModal');
+    state.track='all'; state.subject='all'; render();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    FLC.initChrome();
+    const user = FLC.getCurrentUser();
+    if (user?.role === 'admin') {
+      document.getElementById('adminLink').style.display = 'inline-flex';
+    }
+    render();
+  });
+</script>
+</body>
+</html>

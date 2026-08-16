@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị — FOUR-LEAF CLOVER</title>
+<link rel="icon" href="assets/img/logo-four-leaf-clover.png" type="image/png">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .admin-shell {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 30px 24px 60px;
+  }
+  .admin-shell h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .admin-shell .sub {
+    color: var(--ink-60);
+    margin-bottom: 28px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: .88rem;
+    margin-bottom: 6px;
+  }
+  .form-group .hint {
+    font-size: .76rem;
+    color: var(--ink-60);
+    margin-top: 4px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .btn-danger {
+    background: #C0392B;
+    color: #fff;
+    border: none;
+  }
+  .btn-danger:hover {
+    background: #A5301F;
+  }
+  .preview-area {
+    margin-top: 40px;
+    border-top: 2px solid var(--line);
+    padding-top: 28px;
+  }
+  .preview-area h3 {
+    margin-bottom: 16px;
+  }
+  #post-preview {
+    display: grid;
+    gap: 16px;
+  }
+  .preview-card {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    padding: 18px;
+  }
+  .preview-card .meta {
+    font-size: .76rem;
+    color: var(--ink-60);
+    font-weight: 600;
+  }
+  .preview-card h4 {
+    margin: 6px 0;
+  }
+  .preview-card .content-preview {
+    font-size: .88rem;
+    color: var(--ink-60);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 40 40" fill="none"><g><path class="petal p1" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)"/><path class="petal p2" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(90 20 20)"/><path class="petal p3" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(180 20 20)"/><path class="petal p4" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(270 20 20)"/></g><path class="spark-core" d="M20 15.2c.5 2.9 2.1 4.5 5 5-2.9.5-4.5 2.1-5 5-.5-2.9-2.1-4.5-5-5 2.9-.5 4.5-2.1 5-5Z" fill="#F0C24B"/><defs><linearGradient id="gClover" x1="7" y1="4" x2="33" y2="34"><stop stop-color="#1F5C3D"/><stop offset=".55" stop-color="#2E7D5B"/><stop offset="1" stop-color="#123626"/></linearGradient></defs></svg>
+        <span class="word">FOUR-LEAF <b>CLOVER</b></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="admin.html" class="active">Quản trị</a>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <a href="tai-khoan.html" class="avatar-chip">
+        <span class="avatar-fallback" data-user-initials>AD</span>
+        <span data-user-name>Admin</span>
+      </a>
+      <a href="#" data-logout class="btn btn-ghost btn-sm">Đăng xuất</a>
+    </div>
+  </div>
+</header>
+
+<div class="admin-shell">
+  <h1>📝 Quản trị nội dung</h1>
+  <p class="sub">Đăng bài viết mới và quản lý tài liệu ôn thi trên FOUR-LEAF CLOVER.</p>
+
+  <form id="createPostForm" class="panel" style="padding:28px;">
+    <div class="form-group">
+      <label for="postTitle">Tiêu đề bài viết</label>
+      <input type="text" id="postTitle" placeholder="VD: Phương pháp giải nhanh bất đẳng thức trong đề TSA" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="postMainCategory">Nhóm lớn</label>
+        <select id="postMainCategory" required>
+          <option value="">-- Chọn nhóm lớn --</option>
+          <option value="TSA">TSA (Đánh giá tư duy)</option>
+          <option value="VACT">VACT (Đánh giá năng lực)</option>
+          <option value="THPTQG">THPTQG</option>
+          <option value="HSG">HSG các môn</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="postSubCategory">Nhóm lẻ</label>
+        <select id="postSubCategory" required>
+          <option value="">-- Chọn nhóm lẻ --</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="postContent">Nội dung bài viết</label>
+      <textarea id="postContent" rows="10" placeholder="Nhập nội dung bài viết tại đây... Bạn có thể sử dụng Markdown hoặc HTML cơ bản." required></textarea>
+      <div class="hint">Hỗ trợ định dạng HTML cơ bản: &lt;b&gt;, &lt;i&gt;, &lt;ul&gt;, &lt;li&gt;, v.v.</div>
+    </div>
+
+    <div class="admin-actions">
+      <button type="submit" class="btn btn-primary">📤 Xuất bản bài viết</button>
+      <button type="button" id="resetPostsBtn" class="btn btn-danger">🗑️ Xóa toàn bộ bài viết chạy thử</button>
+    </div>
+  </form>
+
+  <div class="preview-area">
+    <h3>📄 Bài viết đã đăng</h3>
+    <div id="post-preview"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast"><span class="dot"></span><span class="msg"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  const mainCategorySelect = document.getElementById('postMainCategory');
+  const subCategorySelect = document.getElementById('postSubCategory');
+  
+  mainCategorySelect.addEventListener('change', function() {
+    const categoryKey = this.value;
+    subCategorySelect.innerHTML = '<option value="">-- Chọn nhóm lẻ --</option>';
+    
+    if (categoryKey && FLC.CATEGORIES[categoryKey]) {
+      FLC.CATEGORIES[categoryKey].subcategories.forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub.value;
+        option.textContent = sub.label;
+        subCategorySelect.appendChild(option);
+      });
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const isAdmin = await FLC.checkAdminAuth();
+    if (!isAdmin) return;
+    
+    FLC.initNavbar();
+    FLC.initUserUI();
+    FLC.initLogout();
+    
+    await loadPosts();
+  });
+
+  async function loadPosts() {
+    const container = document.getElementById('post-preview');
+    const posts = await FLC.getPosts();
+    
+    if (!posts || posts.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <h4>Chưa có bài viết nào</h4>
+          <p>Hãy tạo bài viết đầu tiên bằng biểu mẫu ở trên.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    container.innerHTML = posts.map(post => `
+      <div class="preview-card">
+        <div class="meta">${post.category} / ${post.subcategory} · ${new Date(post.created_at).toLocaleDateString('vi-VN')}</div>
+        <h4>${post.title}</h4>
+        <div class="content-preview">${post.content}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const title = document.getElementById('postTitle').value.trim();
+    const category = document.getElementById('postMainCategory').value;
+    const subcategory = document.getElementById('postSubCategory').value;
+    const content = document.getElementById('postContent').value.trim();
+    
+    if (!title || !category || !subcategory || !content) {
+      FLC.showToast('Vui lòng điền đầy đủ thông tin bài viết.', 'error');
+      return;
+    }
+    
+    const user = FLC.getCurrentUser();
+    if (!user) {
+      FLC.showToast('Vui lòng đăng nhập lại.', 'error');
+      return;
+    }
+    
+    const result = await FLC.createPost(title, category, subcategory, content, user.id);
+    
+    if (result.success) {
+      FLC.showToast('Đăng bài thành công!', 'success');
+      document.getElementById('createPostForm').reset();
+      subCategorySelect.innerHTML = '<option value="">-- Chọn nhóm lẻ --</option>';
+      await loadPosts();
+    } else {
+      FLC.showToast('Đăng bài thất bại: ' + result.error, 'error');
+    }
+  });
+
+  document.getElementById('resetPostsBtn').addEventListener('click', async () => {
+    if (!confirm('Bạn có chắc chắn muốn xóa toàn bộ bài viết không? Hành động này không thể hoàn tác.')) {
+      return;
+    }
+    
+    const result = await FLC.resetAllPosts();
+    if (result.success) {
+      FLC.showToast('Đã xóa toàn bộ bài viết.', 'success');
+      await loadPosts();
+    } else {
+      FLC.showToast('Xóa bài viết thất bại: ' + result.error, 'error');
+    }
+  });
+</script>
+</body>
+</html>

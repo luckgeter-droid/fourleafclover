@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuyên mục — FOUR-LEAF CLOVER</title>
+<link rel="icon" href="assets/img/logo-four-leaf-clover.png" type="image/png">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .category-filter {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    padding: 18px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+  .category-filter select,
+  .category-filter input {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    font-family: inherit;
+    font-size: .9rem;
+    background: white;
+    flex: 1;
+    min-width: 180px;
+  }
+  .category-filter .btn {
+    flex-shrink: 0;
+  }
+  .breadcrumb {
+    font-size: .85rem;
+    color: var(--ink-60);
+    margin-bottom: 16px;
+  }
+  .breadcrumb a {
+    color: var(--red);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 40 40" fill="none"><g><path class="petal p1" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)"/><path class="petal p2" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(90 20 20)"/><path class="petal p3" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(180 20 20)"/><path class="petal p4" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(270 20 20)"/></g><path class="spark-core" d="M20 15.2c.5 2.9 2.1 4.5 5 5-2.9.5-4.5 2.1-5 5-.5-2.9-2.1-4.5-5-5 2.9-.5 4.5-2.1 5-5Z" fill="#F0C24B"/><defs><linearGradient id="gClover" x1="7" y1="4" x2="33" y2="34"><stop stop-color="#1F5C3D"/><stop offset=".55" stop-color="#2E7D5B"/><stop offset="1" stop-color="#123626"/></linearGradient></defs></svg>
+        <span class="word">FOUR-LEAF <b>CLOVER</b></span>
+      </a>
+      <nav class="nav-links">
+        <!-- Navbar sẽ được render bởi JavaScript -->
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn menu-toggle" aria-label="Mở menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div data-guest-only style="display:flex; gap:8px;">
+        <a href="dang-nhap.html" class="btn btn-ghost btn-sm">Đăng nhập</a>
+        <a href="dang-ky.html" class="btn btn-primary btn-sm">Đăng ký</a>
+      </div>
+      <div data-auth-only style="display:none; align-items:center; gap:10px;">
+        <a href="admin.html" class="btn btn-primary btn-sm" id="adminLink" style="display:none;">Quản trị</a>
+        <a href="tai-khoan.html" class="avatar-chip">
+          <span class="avatar-fallback" data-user-initials>FC</span>
+          <span data-user-name>Học viên</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:28px; padding-bottom: 60px;">
+  <div class="breadcrumb">
+    <a href="index.html">Trang chủ</a> / 
+    <span id="breadcrumb-current">Tất cả bài viết</span>
+  </div>
+
+  <div class="section-head" style="margin-top:0;">
+    <div>
+      <h2 id="page-title">📚 Tất cả bài viết</h2>
+      <div class="sub" id="page-sub">Khám phá kiến thức ôn thi theo từng chuyên mục</div>
+    </div>
+  </div>
+
+  <div class="category-filter">
+    <select id="filterCategory">
+      <option value="">Tất cả nhóm lớn</option>
+      <option value="TSA">TSA (Đánh giá tư duy)</option>
+      <option value="VACT">VACT (Đánh giá năng lực)</option>
+      <option value="THPTQG">THPTQG</option>
+      <option value="HSG">HSG các môn</option>
+    </select>
+    <select id="filterSubcategory">
+      <option value="">Tất cả nhóm lẻ</option>
+    </select>
+    <button class="btn btn-primary" id="filterBtn">Lọc bài viết</button>
+    <button class="btn btn-ghost" id="resetFilterBtn">Đặt lại</button>
+  </div>
+
+  <div id="post-list" class="card-grid"></div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fine">© 2026 FOUR-LEAF CLOVER Center. Kỷ luật tạo nên sức mạnh.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCategory = urlParams.get('category');
+  const initialSubcategory = urlParams.get('subcategory');
+
+  const filterCategory = document.getElementById('filterCategory');
+  const filterSubcategory = document.getElementById('filterSubcategory');
+  const postList = document.getElementById('post-list');
+  const pageTitle = document.getElementById('page-title');
+  const pageSub = document.getElementById('page-sub');
+  const breadcrumb = document.getElementById('breadcrumb-current');
+
+  function updateSubcategoryOptions(categoryKey) {
+    filterSubcategory.innerHTML = '<option value="">Tất cả nhóm lẻ</option>';
+    
+    if (categoryKey && FLC.CATEGORIES[categoryKey]) {
+      FLC.CATEGORIES[categoryKey].subcategories.forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub.value;
+        option.textContent = sub.label;
+        filterSubcategory.appendChild(option);
+      });
+    }
+  }
+
+  filterCategory.addEventListener('change', function() {
+    updateSubcategoryOptions(this.value);
+  });
+
+  async function loadPosts(category = null, subcategory = null) {
+    const posts = await FLC.getPosts(category, subcategory);
+    
+    let titleText = '📚 Tất cả bài viết';
+    let subText = 'Khám phá kiến thức ôn thi theo từng chuyên mục';
+    let breadText = 'Tất cả bài viết';
+    
+    if (category && FLC.CATEGORIES[category]) {
+      titleText = `📚 ${FLC.CATEGORIES[category].label}`;
+      breadText = FLC.CATEGORIES[category].label;
+      
+      if (subcategory) {
+        const sub = FLC.CATEGORIES[category].subcategories.find(s => s.value === subcategory);
+        if (sub) {
+          titleText = `📚 ${sub.label}`;
+          breadText = `${FLC.CATEGORIES[category].label} / ${sub.label}`;
+          subText = `Tài liệu ôn thi chuyên mục ${sub.label}`;
+        }
+      } else {
+        subText = `Tài liệu ôn thi ${FLC.CATEGORIES[category].label}`;
+      }
+    }
+    
+    pageTitle.textContent = titleText;
+    pageSub.textContent = subText;
+    breadcrumb.textContent = breadText;
+    
+    FLC.renderPosts(posts, 'post-list');
+  }
+
+  document.getElementById('filterBtn').addEventListener('click', () => {
+    const category = filterCategory.value;
+    const subcategory = filterSubcategory.value;
+    
+    const params = new URLSearchParams();
+    if (category) params.set('category', category);
+    if (subcategory) params.set('subcategory', subcategory);
+    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    window.history.pushState({}, '', newUrl);
+    
+    loadPosts(category || null, subcategory || null);
+  });
+
+  document.getElementById('resetFilterBtn').addEventListener('click', () => {
+    filterCategory.value = '';
+    updateSubcategoryOptions('');
+    window.history.pushState({}, '', window.location.pathname);
+    loadPosts();
+  });
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    FLC.initChrome();
+    
+    const user = FLC.getCurrentUser();
+    if (user?.role === 'admin') {
+      document.getElementById('adminLink').style.display = 'inline-flex';
+    }
+    
+    if (initialCategory) {
+      filterCategory.value = initialCategory;
+      updateSubcategoryOptions(initialCategory);
+      if (initialSubcategory) {
+        filterSubcategory.value = initialSubcategory;
+      }
+    }
+    
+    await loadPosts(initialCategory || null, initialSubcategory || null);
+  });
+</script>
+</body>
+</html>

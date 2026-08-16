@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch sử làm bài — FOUR-LEAF CLOVER</title>
+<link rel="icon" href="assets/img/logo-four-leaf-clover.png" type="image/png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">
+        <svg viewBox="0 0 40 40" fill="none"><g><path class="petal p1" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)"/><path class="petal p2" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(90 20 20)"/><path class="petal p3" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(180 20 20)"/><path class="petal p4" d="M20 4C25.5 9.5 25.5 14.5 20 20 14.5 14.5 14.5 9.5 20 4Z" fill="url(#gClover)" transform="rotate(270 20 20)"/></g><path class="spark-core" d="M20 15.2c.5 2.9 2.1 4.5 5 5-2.9.5-4.5 2.1-5 5-.5-2.9-2.1-4.5-5-5 2.9-.5 4.5-2.1 5-5Z" fill="#F0C24B"/><defs><linearGradient id="gClover" x1="7" y1="4" x2="33" y2="34"><stop stop-color="#1F5C3D"/><stop offset=".55" stop-color="#2E7D5B"/><stop offset="1" stop-color="#123626"/></linearGradient></defs></svg>
+        <span class="word">FOUR-LEAF <b>CLOVER</b></span>
+      </a>
+      <nav class="nav-links">
+        <!-- Navbar sẽ được render bởi JavaScript -->
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn menu-toggle" aria-label="Mở menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div data-guest-only style="display:flex; gap:8px;">
+        <a href="dang-nhap.html" class="btn btn-ghost btn-sm">Đăng nhập</a>
+        <a href="dang-ky.html" class="btn btn-primary btn-sm">Đăng ký</a>
+      </div>
+      <div data-auth-only style="display:none; align-items:center; gap:10px;">
+        <a href="admin.html" class="btn btn-primary btn-sm" id="adminLink" style="display:none;">Quản trị</a>
+        <a href="tai-khoan.html" class="avatar-chip"><span class="avatar-fallback" data-user-initials>FC</span><span data-user-name>Học viên</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="side-backdrop"></div>
+<div class="shell">
+  <aside class="side">
+    <div class="side-user">
+      <span class="avatar-fallback" data-user-initials style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">FC</span>
+      <div><div class="name" data-user-name>Học viên</div><div class="tag" data-user-tag>Chưa đăng nhập</div></div>
+    </div>
+    <div class="side-group-label">Góc học tập</div>
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Khám phá</a>
+    <a href="khoa-hoc.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>Khóa học</a>
+    <a href="de-thi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>Phòng luyện</a>
+    <a href="lich-su.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Lịch sử làm bài</a>
+    <div class="side-group-label">Tài khoản</div>
+    <a href="tai-khoan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.8-4 6-6 8-6s6.2 2 8 6"/></svg>Cá nhân</a>
+    <a href="#" data-logout><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Đăng xuất</a>
+  </aside>
+
+  <main>
+    <div class="section-head" style="margin-top:0;">
+      <div><h2>Lịch sử làm bài</h2><div class="sub">Theo dõi điểm số và thời gian làm bài của bạn qua từng đề luyện.</div></div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:22px;" id="historyStats"></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Đề thi</th><th>Ngày làm</th><th>Thời gian</th><th>Điểm</th></tr></thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+    <div id="historyEmpty" style="display:none;" class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <h4>Chưa có lịch sử làm bài</h4>
+      <p>Vào <a href="de-thi.html" style="color:var(--red); font-weight:700;">phòng luyện</a> để bắt đầu làm đề đầu tiên.</p>
+    </div>
+  </main>
+</div>
+
+<footer class="site"><div class="wrap"><div class="fine">© 2026 FOUR-LEAF CLOVER Center.</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  // Dữ liệu lịch sử demo
+  const HISTORY = [
+    { exam: "Toán học TSA — Đề dùng thử số 01", date: "2026-07-28", score: 8.5, duration: "54:12" },
+    { exam: "Định lượng HSA — Đề dùng thử số 01", date: "2026-07-22", score: 6.2, duration: "71:03" },
+    { exam: "Đọc hiểu TSA — Đề số 01", date: "2026-07-15", score: 7.8, duration: "29:40" },
+  ];
+
+  const params = new URLSearchParams(location.search);
+  const filter = params.get('filter');
+
+  let list = [...HISTORY];
+  if (filter) list = list.filter(h => h.exam.toLowerCase().includes(filter.toLowerCase()));
+
+  const body = document.getElementById('historyBody');
+  const empty = document.getElementById('historyEmpty');
+  
+  if (!list.length){
+    document.querySelector('.table-wrap').style.display = 'none';
+    empty.style.display = 'block';
+  } else {
+    body.innerHTML = list.map(h => {
+      const cls = h.score >= 8 ? 'high' : h.score >= 6 ? 'mid' : 'low';
+      return `<tr><td>${h.exam}</td><td>${h.date}</td><td style="font-family:var(--font-mono);">${h.duration}</td><td><span class="score-pill ${cls}">${h.score.toFixed(1)}/10</span></td></tr>`;
+    }).join('');
+
+    const avg = (list.reduce((s,h)=>s+h.score,0)/list.length).toFixed(1);
+    const best = Math.max(...list.map(h=>h.score)).toFixed(1);
+    document.getElementById('historyStats').innerHTML = `
+      <div class="stat-card"><div class="num">${list.length}</div><div class="lbl">Lượt làm bài</div></div>
+      <div class="stat-card"><div class="num">${avg}</div><div class="lbl">Điểm trung bình</div></div>
+      <div class="stat-card"><div class="num">${best}</div><div class="lbl">Điểm cao nhất</div></div>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    FLC.initChrome();
+    const user = FLC.getCurrentUser();
+    if (user?.role === 'admin') {
+      document.getElementById('adminLink').style.display = 'inline-flex';
+    }
+  });
+</script>
+</body>
+</html>
