@@ -56,7 +56,11 @@
       <div><h2>Lịch sử làm bài</h2><div class="sub">Theo dõi điểm số và thời gian làm bài của bạn qua từng đề luyện.</div></div>
     </div>
 
-    <div class="grid-3" style="margin-bottom:22px;" id="historyStats"></div>
+    <div class="grid-3" style="margin-bottom:22px;" id="historyStats">
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Lượt làm bài</div></div>
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Điểm trung bình</div></div>
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Điểm cao nhất</div></div>
+    </div>
 
     <div class="table-wrap">
       <table>
@@ -64,7 +68,7 @@
         <tbody id="historyBody"></tbody>
       </table>
     </div>
-    <div id="historyEmpty" style="display:none;" class="empty-state">
+    <div id="historyEmpty" style="display:block;" class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
       <h4>Chưa có lịch sử làm bài</h4>
       <p>Vào <a href="de-thi.html" style="color:var(--red); font-weight:700;">phòng luyện</a> để bắt đầu làm đề đầu tiên.</p>
@@ -77,12 +81,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-  // Dữ liệu lịch sử demo
-  const HISTORY = [
-    { exam: "Toán học TSA — Đề dùng thử số 01", date: "2026-07-28", score: 8.5, duration: "54:12" },
-    { exam: "Định lượng HSA — Đề dùng thử số 01", date: "2026-07-22", score: 6.2, duration: "71:03" },
-    { exam: "Đọc hiểu TSA — Đề số 01", date: "2026-07-15", score: 7.8, duration: "29:40" },
-  ];
+  // ===== KHÔNG CÓ DỮ LIỆU MẪU =====
+  const HISTORY = [];  // Dữ liệu sẽ đến từ Supabase sau này
 
   const params = new URLSearchParams(location.search);
   const filter = params.get('filter');
@@ -92,11 +92,20 @@
 
   const body = document.getElementById('historyBody');
   const empty = document.getElementById('historyEmpty');
+  const stats = document.getElementById('historyStats');
   
   if (!list.length){
     document.querySelector('.table-wrap').style.display = 'none';
     empty.style.display = 'block';
+    // Cập nhật stats về 0
+    stats.innerHTML = `
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Lượt làm bài</div></div>
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Điểm trung bình</div></div>
+      <div class="stat-card"><div class="num">0</div><div class="lbl">Điểm cao nhất</div></div>
+    `;
   } else {
+    document.querySelector('.table-wrap').style.display = 'block';
+    empty.style.display = 'none';
     body.innerHTML = list.map(h => {
       const cls = h.score >= 8 ? 'high' : h.score >= 6 ? 'mid' : 'low';
       return `<tr><td>${h.exam}</td><td>${h.date}</td><td style="font-family:var(--font-mono);">${h.duration}</td><td><span class="score-pill ${cls}">${h.score.toFixed(1)}/10</span></td></tr>`;
@@ -104,10 +113,11 @@
 
     const avg = (list.reduce((s,h)=>s+h.score,0)/list.length).toFixed(1);
     const best = Math.max(...list.map(h=>h.score)).toFixed(1);
-    document.getElementById('historyStats').innerHTML = `
+    stats.innerHTML = `
       <div class="stat-card"><div class="num">${list.length}</div><div class="lbl">Lượt làm bài</div></div>
       <div class="stat-card"><div class="num">${avg}</div><div class="lbl">Điểm trung bình</div></div>
-      <div class="stat-card"><div class="num">${best}</div><div class="lbl">Điểm cao nhất</div></div>`;
+      <div class="stat-card"><div class="num">${best}</div><div class="lbl">Điểm cao nhất</div></div>
+    `;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
