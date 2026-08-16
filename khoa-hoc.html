@@ -72,7 +72,9 @@
       <button class="subject-pill" data-subject="khoa-hoc">Khoa học</button>
     </div>
 
-    <div class="card-grid" id="courseGrid"></div>
+    <div class="card-grid" id="courseGrid">
+      <!-- Sẽ được render bởi JavaScript -->
+    </div>
   </main>
 </div>
 
@@ -145,17 +147,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-  // Dữ liệu khóa học demo
-  const COURSES = [
-    { id: "C1", track: "tsa", subject: "toan", title: "Tư duy Toán học — Nền tảng đại số & hàm số", lessons: 24, hours: 9, level: "Cơ bản → Nâng cao", color: "" },
-    { id: "C2", track: "tsa", subject: "doc-hieu", title: "Tư duy Đọc hiểu — Kỹ thuật đọc nhanh & suy luận", lessons: 16, hours: 6, level: "Nâng cao", color: "" },
-    { id: "C3", track: "tsa", subject: "khoa-hoc", title: "Tư duy Khoa học — Phân tích dữ liệu thực nghiệm", lessons: 20, hours: 8, level: "Cơ bản", color: "" },
-    { id: "C4", track: "hsa", subject: "toan", title: "Định lượng HSA — Toán ứng dụng theo cấu trúc VNU", lessons: 22, hours: 10, level: "Trung bình", color: "blue" },
-    { id: "C5", track: "hsa", subject: "doc-hieu", title: "Định tính HSA — Ngôn ngữ & tư duy logic", lessons: 18, hours: 7, level: "Nâng cao", color: "blue" },
-    { id: "C6", track: "hsa", subject: "khoa-hoc", title: "Khoa học HSA — Vật lý · Hoá học · Sinh học tổng hợp", lessons: 26, hours: 11, level: "Trung bình", color: "blue" },
-    { id: "C7", track: "thpt", subject: "toan", title: "Ôn thi THPT — Trọng tâm Toán 12", lessons: 30, hours: 14, level: "Cơ bản", color: "" },
-    { id: "C8", track: "thpt", subject: "khoa-hoc", title: "Ôn thi THPT — Vật lý bứt phá 8+", lessons: 21, hours: 9, level: "Nâng cao", color: "blue" },
-  ];
+  // ===== KHÔNG CÓ DỮ LIỆU MẪU =====
+  const COURSES = [];  // Khóa học sẽ được thêm từ admin sau
 
   let state = { track: 'all', subject: 'all' };
   const params = new URLSearchParams(location.search);
@@ -176,7 +169,11 @@
 
     const grid = document.getElementById('courseGrid');
     if (!list.length){
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg><h4>Chưa có khóa học phù hợp</h4><p>Thử chọn bộ lọc khác.</p></div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>
+        <h4>Chưa có khóa học nào</h4>
+        <p>Quản trị viên có thể <a href="admin.html" style="color:var(--red);font-weight:700;">thêm khóa học mới</a>.</p>
+      </div>`;
       return;
     }
     grid.innerHTML = list.map(c => `
@@ -189,7 +186,7 @@
           <h4>${c.title}</h4>
           <div class="course-meta"><span>${c.track.toUpperCase()}</span><span>${c.level}</span></div>
           <div class="progress-bar"><i style="width:${Math.floor(Math.random()*70)+10}%"></i></div>
-          <!-- Đã xóa nút Xem khóa học -->
+          <button class="btn btn-dark btn-sm btn-block">Xem khóa học</button>
         </div>
       </div>`).join('');
 
