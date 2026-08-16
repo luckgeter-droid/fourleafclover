@@ -72,7 +72,13 @@
       <button class="subject-pill" data-subject="tong-hop">Tổng hợp</button>
     </div>
 
-    <div class="card-grid" id="examGrid"></div>
+    <div class="card-grid" id="examGrid">
+      <div class="empty-state" style="grid-column:1/-1;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>
+        <h4>Chưa có đề thi</h4>
+        <p>Quản trị viên có thể <a href="admin.html" style="color:var(--red);font-weight:700;">đăng đề mới</a>.</p>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -139,20 +145,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-  const EXAMS = [
-    { id: "TOAN_TSA_FREE", track: "tsa", subject: "toan", vip: false, title: "Toán học TSA — Đề dùng thử số 01", duration: 60, questions: 40 },
-    { id: "TOAN_TSA_01", track: "tsa", subject: "toan", vip: true, title: "Toán học TSA — Đề chính thức kíp 1", duration: 60, questions: 40 },
-    { id: "TOAN_TSA_02", track: "tsa", subject: "toan", vip: true, title: "Toán học TSA — Đề chính thức kíp 2", duration: 60, questions: 40 },
-    { id: "DOC_TSA_01", track: "tsa", subject: "doc-hieu", vip: true, title: "Đọc hiểu TSA — Đề số 01", duration: 30, questions: 20 },
-    { id: "DOC_TSA_02", track: "tsa", subject: "doc-hieu", vip: true, title: "Đọc hiểu TSA — Đề số 02", duration: 30, questions: 20 },
-    { id: "KH_TSA_01", track: "tsa", subject: "khoa-hoc", vip: true, title: "Khoa học TSA — Đề số 01", duration: 60, questions: 40 },
-    { id: "FULL_TSA_01", track: "tsa", subject: "tong-hop", vip: true, title: "Đề thi thử TSA tổng hợp — Số 01", duration: 150, questions: 100 },
-    { id: "DL_HSA_FREE", track: "hsa", subject: "toan", vip: false, title: "Định lượng HSA — Đề dùng thử số 01", duration: 75, questions: 50 },
-    { id: "DL_HSA_02", track: "hsa", subject: "toan", vip: true, title: "Định lượng HSA — Đề số 02", duration: 75, questions: 50 },
-    { id: "DT_HSA_01", track: "hsa", subject: "doc-hieu", vip: true, title: "Định tính HSA — Đề số 01", duration: 60, questions: 50 },
-    { id: "KH_HSA_01", track: "hsa", subject: "khoa-hoc", vip: true, title: "Khoa học HSA — Đề số 01", duration: 60, questions: 50 },
-    { id: "FULL_HSA_01", track: "hsa", subject: "tong-hop", vip: true, title: "Đề thi thử HSA tổng hợp — Số 01", duration: 195, questions: 150 },
-  ];
+  // ===== KHÔNG CÓ DỮ LIỆU MẪU =====
+  const EXAMS = [];  // Dữ liệu sẽ đến từ Supabase sau này
 
   let state = { track: 'all', subject: 'all' };
   const params = new URLSearchParams(location.search);
@@ -171,7 +165,7 @@
     const vip = user?.vip || false;
     
     if (!list.length){
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg><h4>Chưa có đề phù hợp</h4><p>Thử đổi bộ lọc hoặc đăng đề mới.</p></div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg><h4>Chưa có đề phù hợp</h4><p>Quản trị viên có thể <a href="admin.html" style="color:var(--red);font-weight:700;">đăng đề mới</a>.</p></div>`;
       return;
     }
     grid.innerHTML = list.map(e => {
