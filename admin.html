@@ -87,6 +87,94 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* ===== FILE UPLOAD STYLES ===== */
+  .dropzone {
+    border: 2px dashed var(--line);
+    border-radius: var(--radius-m);
+    padding: 34px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+    position: relative;
+  }
+  .dropzone:hover, .dropzone.drag {
+    border-color: var(--red);
+    background: rgba(31,92,61,.04);
+  }
+  .dropzone svg {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 12px;
+    color: var(--ink-60);
+  }
+  .dropzone strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+  .dropzone .hint {
+    color: var(--ink-60);
+    font-size: .8rem;
+    margin-top: 6px;
+  }
+  .dropzone input[type=file] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .upload-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+  .upload-row .ic {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--red);
+    font-size: 1.4rem;
+  }
+  .upload-row .meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .upload-row .meta .fname {
+    font-weight: 700;
+    font-size: .86rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .upload-row .meta .fsize {
+    font-size: .74rem;
+    color: var(--ink-60);
+  }
+  .upload-row .rm {
+    cursor: pointer;
+    color: var(--ink-60);
+    background: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .upload-row .rm:hover {
+    background: var(--mist);
+    color: var(--red);
+  }
 </style>
 </head>
 <body>
@@ -115,9 +203,9 @@
 
 <div class="admin-shell">
   <h1>📝 Quản trị nội dung</h1>
-  <p class="sub">Đăng bài viết mới và quản lý tài liệu ôn thi trên FOUR-LEAF CLOVER.</p>
+  <p class="sub">Đăng bài viết mới, tải lên tài liệu PDF và video cho học viên.</p>
 
-  <form id="createPostForm" class="panel" style="padding:28px;">
+  <form id="createPostForm" class="panel" style="padding:28px;" enctype="multipart/form-data">
     <div class="form-group">
       <label for="postTitle">Tiêu đề bài viết</label>
       <input type="text" id="postTitle" placeholder="VD: Phương pháp giải nhanh bất đẳng thức trong đề TSA" required>
@@ -144,8 +232,23 @@
 
     <div class="form-group">
       <label for="postContent">Nội dung bài viết</label>
-      <textarea id="postContent" rows="10" placeholder="Nhập nội dung bài viết tại đây... Bạn có thể sử dụng Markdown hoặc HTML cơ bản." required></textarea>
+      <textarea id="postContent" rows="8" placeholder="Nhập nội dung bài viết tại đây... Bạn có thể sử dụng Markdown hoặc HTML cơ bản." required></textarea>
       <div class="hint">Hỗ trợ định dạng HTML cơ bản: &lt;b&gt;, &lt;i&gt;, &lt;ul&gt;, &lt;li&gt;, v.v.</div>
+    </div>
+
+    <!-- ====== PHẦN UPLOAD FILE ====== -->
+    <div class="form-group">
+      <label>Tải lên tài liệu (PDF, Video, Image)</label>
+      <div class="dropzone" id="fileDropzone">
+        <input type="file" id="post-file" accept=".pdf,.mp4,.mov,.webm,.jpg,.jpeg,.png,.gif,.doc,.docx,.ppt,.pptx">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <path d="M14 2v6h6"/>
+        </svg>
+        <strong>Kéo thả file vào đây</strong>
+        <div class="hint">Hỗ trợ: PDF, MP4, MOV, WebM, JPG, PNG, GIF, Word, PowerPoint (tối đa 50MB)</div>
+      </div>
+      <div id="fileInfo"></div>
     </div>
 
     <div class="admin-actions">
@@ -166,6 +269,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
+  // ============================================================
+  // 1. SUB CATEGORY DYNAMIC UPDATE
+  // ============================================================
   const mainCategorySelect = document.getElementById('postMainCategory');
   const subCategorySelect = document.getElementById('postSubCategory');
   
@@ -183,6 +289,51 @@
     }
   });
 
+  // ============================================================
+  // 2. FILE UPLOAD HANDLING
+  // ============================================================
+  let selectedFile = null;
+  const fileInput = document.getElementById('post-file');
+  const fileInfo = document.getElementById('fileInfo');
+
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    selectedFile = file;
+    const fileSize = file.size < 1024 * 1024 
+      ? (file.size / 1024).toFixed(1) + ' KB' 
+      : (file.size / 1024 / 1024).toFixed(1) + ' MB';
+    
+    let fileIcon = '📎';
+    if (file.type.includes('pdf')) fileIcon = '📄';
+    else if (file.type.includes('video')) fileIcon = '🎬';
+    else if (file.type.includes('image')) fileIcon = '🖼️';
+    else if (file.type.includes('word') || file.type.includes('document')) fileIcon = '📝';
+    else if (file.type.includes('presentation') || file.type.includes('powerpoint')) fileIcon = '📊';
+    
+    fileInfo.innerHTML = `
+      <div class="upload-row">
+        <span class="ic">${fileIcon}</span>
+        <div class="meta">
+          <div class="fname">${file.name}</div>
+          <div class="fsize">${fileSize}</div>
+        </div>
+        <button type="button" class="rm" onclick="removeFile()">&times;</button>
+      </div>
+    `;
+  });
+
+  function removeFile() {
+    selectedFile = null;
+    fileInput.value = '';
+    fileInfo.innerHTML = '';
+  }
+  window.removeFile = removeFile;
+
+  // ============================================================
+  // 3. CHECK ADMIN AUTH
+  // ============================================================
   document.addEventListener('DOMContentLoaded', async () => {
     const isAdmin = await FLC.checkAdminAuth();
     if (!isAdmin) return;
@@ -194,6 +345,9 @@
     await loadPosts();
   });
 
+  // ============================================================
+  // 4. LOAD POSTS
+  // ============================================================
   async function loadPosts() {
     const container = document.getElementById('post-preview');
     const posts = await FLC.getPosts();
@@ -208,15 +362,34 @@
       return;
     }
     
-    container.innerHTML = posts.map(post => `
-      <div class="preview-card">
-        <div class="meta">${post.category} / ${post.subcategory} · ${new Date(post.created_at).toLocaleDateString('vi-VN')}</div>
-        <h4>${post.title}</h4>
-        <div class="content-preview">${post.content}</div>
-      </div>
-    `).join('');
+    container.innerHTML = posts.map(post => {
+      let fileHTML = '';
+      if (post.file_url) {
+        if (post.file_type === 'pdf') {
+          fileHTML = `<div class="file-info" style="margin-top:8px;">📄 <a href="${post.file_url}" target="_blank" style="color:var(--blue);font-weight:600;">Xem PDF</a> (${post.file_name || ''})</div>`;
+        } else if (post.file_type === 'video') {
+          fileHTML = `<div class="file-info" style="margin-top:8px;">🎬 <a href="${post.file_url}" target="_blank" style="color:var(--blue);font-weight:600;">Xem video</a> (${post.file_name || ''})</div>`;
+        } else if (post.file_type === 'image') {
+          fileHTML = `<div class="file-info" style="margin-top:8px;">🖼️ <a href="${post.file_url}" target="_blank" style="color:var(--blue);font-weight:600;">Xem ảnh</a> (${post.file_name || ''})</div>`;
+        } else {
+          fileHTML = `<div class="file-info" style="margin-top:8px;">📎 <a href="${post.file_url}" target="_blank" style="color:var(--blue);font-weight:600;">Tải tài liệu</a> (${post.file_name || ''})</div>`;
+        }
+      }
+      
+      return `
+        <div class="preview-card">
+          <div class="meta">${post.category} / ${post.subcategory} · ${new Date(post.created_at).toLocaleDateString('vi-VN')}</div>
+          <h4>${post.title}</h4>
+          <div class="content-preview">${post.content}</div>
+          ${fileHTML}
+        </div>
+      `;
+    }).join('');
   }
 
+  // ============================================================
+  // 5. CREATE POST WITH FILE
+  // ============================================================
   document.getElementById('createPostForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -235,32 +408,39 @@
       FLC.showToast('Vui lòng đăng nhập lại.', 'error');
       return;
     }
-    
-    const result = await FLC.createPost(title, category, subcategory, content, user.id);
+
+    // Gọi hàm createPost với tham số fileInput
+    const result = await FLC.createPost(title, category, subcategory, content, user.id, fileInput);
     
     if (result.success) {
-      FLC.showToast('Đăng bài thành công!', 'success');
+      FLC.showToast('✅ Đăng bài thành công!', 'success');
       document.getElementById('createPostForm').reset();
       subCategorySelect.innerHTML = '<option value="">-- Chọn nhóm lẻ --</option>';
+      removeFile();
       await loadPosts();
     } else {
-      FLC.showToast('Đăng bài thất bại: ' + result.error, 'error');
+      FLC.showToast('❌ Đăng bài thất bại: ' + result.error, 'error');
     }
   });
 
+  // ============================================================
+  // 6. RESET POSTS
+  // ============================================================
   document.getElementById('resetPostsBtn').addEventListener('click', async () => {
-    if (!confirm('Bạn có chắc chắn muốn xóa toàn bộ bài viết không? Hành động này không thể hoàn tác.')) {
+    if (!confirm('⚠️ Bạn có chắc chắn muốn xóa TOÀN BỘ bài viết không?\nHành động này không thể hoàn tác!')) {
       return;
     }
     
     const result = await FLC.resetAllPosts();
     if (result.success) {
-      FLC.showToast('Đã xóa toàn bộ bài viết.', 'success');
+      FLC.showToast('✅ Đã xóa toàn bộ bài viết.', 'success');
       await loadPosts();
     } else {
-      FLC.showToast('Xóa bài viết thất bại: ' + result.error, 'error');
+      FLC.showToast('❌ Xóa bài viết thất bại: ' + result.error, 'error');
     }
   });
+
+  console.log('✅ FOUR-LEAF CLOVER Admin page loaded!');
 </script>
 </body>
 </html>
